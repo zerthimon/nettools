@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian
 
 MAINTAINER Lior Goikhburg <goikhburg@gmail.com>
 
