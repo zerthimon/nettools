@@ -8,7 +8,7 @@ metadata:
     env: infrastructure
 spec:
   containers:
-  - name: designsystem
+  - name: nettools
     image: zerthimon/nettools
     imagePullPolicy: IfNotPresent
     stdin: true
