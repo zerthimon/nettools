@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu/nginx
 
 MAINTAINER Lior Goikhburg <goikhburg@gmail.com>
 
@@ -55,5 +55,3 @@ RUN apt-get -y update \
     /var/lib/apt/lists/* \
     /tmp/* \
     /var/tmp/*
-
-ENTRYPOINT [ "/bin/bash" ]
