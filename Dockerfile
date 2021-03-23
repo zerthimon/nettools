@@ -55,3 +55,5 @@ RUN apt-get -y update \
     /var/lib/apt/lists/* \
     /tmp/* \
     /var/tmp/*
+
+ENTRYPOINT [ "/bin/bash" ]
