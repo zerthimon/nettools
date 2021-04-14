@@ -21,6 +21,7 @@ RUN apt-get -y update \
     ca-certificates \
     lsb-release \
     bash \
+    bash-completion\
     netcat \
     net-tools \
     iproute2 \
@@ -61,5 +62,7 @@ RUN apt-get -y update \
     /var/lib/apt/lists/* \
     /tmp/* \
     /var/tmp/* \
+  && echo '' >> /etc/bash.bashrc \
+  && echo '. /etc/bash_completion' >> /etc/bash.bashrc \
   && echo 'source <(/usr/bin/kubectl completion bash)' >> /etc/bash.bashrc \
   && echo 'source <(/usr/sbin/helm completion bash)' >> /etc/bash.bashrc
