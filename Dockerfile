@@ -1,4 +1,4 @@
-FROM ubuntu/nginx
+FROM nginx
 
 MAINTAINER Lior Goikhburg <goikhburg@gmail.com>
 
@@ -11,6 +11,8 @@ RUN apt-get -y update \
   && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install \
     locales \
     tzdata \
+  && rm -rf /etc/timezone /etc/localtime \
+  && DEBIAN_FRONTEND=noninteractive dpkg-reconfigure tzdata \
   && DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install \
     software-properties-common \
     apt-transport-https \
@@ -38,9 +40,10 @@ RUN apt-get -y update \
     lynx \
   && wget -qO - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
   && echo "deb [ arch=amd64 ] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list \
-  && add-apt-repository -y ppa:chris-lea/redis-server \
+  && apt-key adv --keyserver keyserver.ubuntu.com --recv 136221EE520DDFAF0A905689B9316A7BC7917B12 \
+  && echo "deb [ arch=amd64 ] http://ppa.launchpad.net/chris-lea/redis-server/ubuntu bionic main" > /etc/apt/sources.list.d/redis.list \
   && wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add - \
-  && echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" > /etc/apt/sources.list.d/mongodb.list \
+  && echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/debian buster/mongodb-org/4.4 main" > /etc/apt/sources.list.d/mongodb.list \
   && wget -qO - https://baltocdn.com/helm/signing.asc | apt-key add - \
   && echo "deb [ arch=amd64 ] https://baltocdn.com/helm/stable/debian/ all main" > /etc/apt/sources.list.d/helm.list \
   && wget -qO - https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
